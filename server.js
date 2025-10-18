@@ -1,3 +1,4 @@
+// server.js
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -7,16 +8,22 @@ const app = express();
 app.use(cors());
 app.use(express.static('public'));
 
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+// Připojení k MongoDB
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
     .then(() => console.log("MongoDB připojeno"))
-    .catch(err => console.error(err));
+    .catch(err => console.error("Chyba při připojení k MongoDB:", err));
 
+// Definice schématu
 const postSchema = new mongoose.Schema({
     Title: String,
     Content: String,
     Date: Date
 });
-const Post = mongoose.model('Post', postSchema);
+
+const Post = mongoose.model('Post', postSchema, 'idnes');
 
 app.get('/posts', async (req, res) => {
     try {
