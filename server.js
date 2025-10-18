@@ -27,5 +27,9 @@ app.get('/posts', async (req, res) => {
     }
 });
 
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/public/index.html');
+});
+
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`Server běží na portu ${PORT}`));
