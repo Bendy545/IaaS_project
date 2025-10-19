@@ -27,7 +27,7 @@ const Post = mongoose.model('Post', postSchema, 'idnes');
 
 app.get('/posts', async (req, res) => {
     try {
-        const posts = await Post.find().sort({ Date: -1 }).limit(10);
+        const posts = await Post.find().sort({ Date: -1 }).limit(15);
         res.json(posts);
     } catch (err) {
         res.status(500).json({ message: err.message });
